@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CEOBiblico.ai — 4 perguntas rápidas</title>
+  <meta name="description" content="Responda 4 perguntas rápidas.">
+  <meta name="theme-color" content="#121214">
+  <link rel="icon" href="assets/favicon.png">
+  <style>
+    /* Mesma fonte e cores do app e dos outros sites (Inter embutida — licença em assets/OFL.txt) */
+    @font-face {
+      font-family: "Inter";
+      src: url("assets/inter.woff2") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      color-scheme: dark;
+      --bg: #121214;
+      --surface: #19191c;
+      --surface-2: #212125;
+      --border: #2a2a2f;
+      --border-2: #3a3a41;
+      --text: #ededef;
+      --muted: #8d8d95;
+      --gold: #c9a55a;
+      --gold-2: #e3c585;
+      --sans: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.55;
+      letter-spacing: -0.006em;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { max-width: 520px; margin: 0 auto; padding: 28px 16px 40px; text-align: center; }
+
+    .top { display: inline-flex; align-items: center; gap: 10px; text-align: left; }
+    .logo { width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 8px 22px rgba(0, 0, 0, .5); }
+    .brand { margin: 0; font-weight: 700; font-size: 14.5px; line-height: 1.25; }
+    .brand span { display: block; color: var(--muted); font-weight: 400; font-size: 12px; }
+
+    .progress { margin: 26px 0 0; }
+    .progress p { margin: 0 0 8px; color: var(--muted); font-size: 12.5px; }
+    .bar { height: 6px; border-radius: 99px; background: var(--surface-2); overflow: hidden; }
+    .bar i { display: block; height: 100%; width: 0; background: var(--gold); border-radius: inherit; transition: width .35s ease; }
+
+    .step { display: none; animation: in .3s ease; }
+    .step.on { display: block; }
+    @keyframes in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .step { animation: none; } .bar i { transition: none; } }
+
+    h1 { font-size: clamp(21px, 5.4vw, 26px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.25; margin: 26px 0 18px; }
+    h1 em { font-style: normal; color: var(--gold); }
+
+    .opts { display: grid; gap: 10px; }
+    .opt {
+      display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+      padding: 15px 16px; border-radius: 12px; cursor: pointer;
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      font: inherit; font-weight: 600; font-size: 15px;
+      transition: border-color .15s, background .15s;
+    }
+    .opt:hover { border-color: var(--border-2); background: var(--surface-2); }
+    .opt.picked { border-color: var(--gold); background: #1f1d17; }
+    .opt .ic {
+      width: 22px; height: 22px; flex: none; color: var(--gold);
+      fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .opt .ic .off { stroke: var(--border-2); }
+    .opt small { display: block; color: var(--muted); font-weight: 400; font-size: 12.5px; }
+
+    .back { margin: 16px 0 0; background: none; border: 0; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; }
+    .back:hover { color: var(--gold-2); }
+
+    /* Tela final */
+    .done { padding-top: 10px; }
+    .badge {
+      width: 76px; height: 76px; margin: 26px auto 0; border-radius: 50%; display: grid; place-items: center;
+      background: radial-gradient(circle, #2a2518, #1f1d17); border: 1px solid #4a4538;
+      box-shadow: 0 10px 34px rgba(201, 165, 90, .18);
+    }
+    .badge svg { width: 34px; height: 34px; fill: none; stroke: var(--gold); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .done h1 { margin-top: 18px; margin-bottom: 10px; }
+    .done .lead { color: var(--muted); margin: 0 auto; max-width: 420px; }
+    .tag {
+      display: inline-block; margin: 18px 0 0; padding: 5px 12px; border-radius: 99px;
+      border: 1px solid #4a4538; color: var(--gold-2); font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    }
+
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin: 22px 0 0;
+      background: var(--gold); border: 1px solid var(--gold); color: #17160f;
+      border-radius: 10px; padding: 16px 18px; font-weight: 700; font-size: 16.5px;
+      text-decoration: none; cursor: pointer; transition: background .15s, transform .15s;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    .btn:hover { background: var(--gold-2); border-color: var(--gold-2); }
+    .btn:active { transform: scale(.98); }
+    .btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(201, 165, 90, .35); }
+      50% { box-shadow: 0 0 0 10px rgba(201, 165, 90, 0); }
+    }
+    @media (prefers-reduced-motion: reduce) { .btn { animation: none; } }
+
+    footer { color: var(--muted); font-size: 12px; margin-top: 40px; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="top">
+      <img class="logo" src="assets/logo.png" alt="">
+      <p class="brand">CEOBiblico.ai <span>Versículo do Dia</span></p>
+    </div>
+
+    <div class="progress" id="progress">
+      <p id="count">Pergunta 1 de 4</p>
+      <div class="bar"><i id="fill"></i></div>
+    </div>
+
+    <!-- Pergunta 1 -->
+    <section class="step on" data-key="trabalho">
+      <h1>Você trabalha usando <em>notebook ou computador</em>?</h1>
+      <div class="opts">
+        <button class="opt" data-v="sim"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5 5-5.5"/></svg><span>Sim</span></button>
+        <button class="opt" data-v="nao"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg><span>Não</span></button>
+      </div>
+    </section>
+
+    <!-- Pergunta 2 -->
+    <section class="step" data-key="religiao">
+      <h1>Qual é a sua <em>religião</em>?</h1>
+      <div class="opts">
+        <button class="opt" data-v="crente"><svg class="ic" viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3M12 7v6M9.5 9.5h5"/></svg><span>Crente<small>Evangélico</small></span></button>
+        <button class="opt" data-v="catolico"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3v18M7 8h10"/></svg><span>Católico</span></button>
+        <button class="opt" data-v="outro"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg><span>Outro</span></button>
+      </div>
+      <button class="back" type="button">‹ Voltar</button>
+    </section>
+
+    <!-- Pergunta 3 -->
+    <section class="step" data-key="tempo">
+      <h1>Quanto tempo por dia você passa <em>no notebook</em>?</h1>
+      <div class="opts">
+        <button class="opt" data-v="ate_2h"><svg class="ic" viewBox="0 0 24 24"><path d="M5 20v-3"/><path class="off" d="M10 20v-7M15 20v-11M20 20V5"/></svg><span>Até 2 horas</span></button>
+        <button class="opt" data-v="2_4h"><svg class="ic" viewBox="0 0 24 24"><path d="M5 20v-3M10 20v-7"/><path class="off" d="M15 20v-11M20 20V5"/></svg><span>De 2 a 4 horas</span></button>
+        <button class="opt" data-v="4_8h"><svg class="ic" viewBox="0 0 24 24"><path d="M5 20v-3M10 20v-7M15 20v-11"/><path class="off" d="M20 20V5"/></svg><span>De 4 a 8 horas</span></button>
+        <button class="opt" data-v="mais_8h"><svg class="ic" viewBox="0 0 24 24"><path d="M5 20v-3M10 20v-7M15 20v-11M20 20V5"/></svg><span>Mais de 8 horas</span></button>
+      </div>
+      <button class="back" type="button">‹ Voltar</button>
+    </section>
+
+    <!-- Pergunta 4 -->
+    <section class="step" data-key="ocupacao">
+      <h1>O que você mais faz <em>no notebook</em>?</h1>
+      <div class="opts">
+        <button class="opt" data-v="empreendedor"><svg class="ic" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg><span>Empreendedor<small>Cuido do meu próprio negócio</small></span></button>
+        <button class="opt" data-v="home_office"><svg class="ic" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg><span>Home office<small>Trabalho para uma empresa</small></span></button>
+        <button class="opt" data-v="estudante"><svg class="ic" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5M22 9v5"/></svg><span>Estudante<small>Faculdade, cursos ou concursos</small></span></button>
+        <button class="opt" data-v="jogos"><svg class="ic" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 10.5v4M5 12.5h4M15.5 12h.01M18 13.5h.01"/></svg><span>Jogos<small>Uso mais para jogar</small></span></button>
+      </div>
+      <button class="back" type="button">‹ Voltar</button>
+    </section>
+
+    <!-- Final: sempre a mesma mensagem -->
+    <section class="step done" id="done">
+      <div class="badge"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <span class="tag">Acesso antecipado</span>
+      <h1>Parabéns! Você foi <em>selecionado</em> para testar a primeira versão</h1>
+      <p class="lead">O CEOBiblico.ai está sendo liberado agora para poucas pessoas. Você é uma das primeiras a conhecer. Assista ao vídeo curto e veja como funciona.</p>
+      <!-- Página de vendas (VSL): troque o href quando tiver o domínio -->
+      <a class="btn" id="go" href="#vsl">
+        Ver o CEOBiblico.ai
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </section>
+
+    <footer>© 2026 CEOBiblico.ai</footer>
+  </main>
+
+  <script>
+    // Mesmo projeto Supabase do app. Chave pública: só consegue chamar registrar_pressel.
+    var SUPABASE_URL = 'https://yqfopqwuboqrmoljhknp.supabase.co';
+    var SUPABASE_KEY = 'sb_publishable_RuQWzz1j2I8sqzXCd73k3g_wtNKJo1L';
+
+    var steps = [].slice.call(document.querySelectorAll('.step'));
+    var total = 4;
+    var answers = {};
+    var current = 0;
+
+    function show(i) {
+      steps[current].classList.remove('on');
+      current = i;
+      steps[i].classList.add('on');
+      if (i < total) {
+        document.getElementById('count').textContent = 'Pergunta ' + (i + 1) + ' de ' + total;
+        document.getElementById('fill').style.width = (i / total * 100) + '%';
+      } else {
+        document.getElementById('progress').style.display = 'none';
+      }
+      window.scrollTo(0, 0);
+    }
+
+    steps.slice(0, total).forEach(function (step, i) {
+      step.querySelectorAll('.opt').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          step.querySelectorAll('.opt').forEach(function (b) { b.classList.remove('picked'); });
+          btn.classList.add('picked');
+          answers[step.dataset.key] = btn.dataset.v;
+          document.getElementById('fill').style.width = ((i + 1) / total * 100) + '%';
+          setTimeout(function () {
+            if (i + 1 === total) send();
+            show(i + 1);
+          }, 250);
+        });
+      });
+      var back = step.querySelector('.back');
+      if (back) back.addEventListener('click', function () { show(i - 1); });
+    });
+
+    // Código aleatório do aparelho (sem nome, e-mail ou nada pessoal)
+    function deviceId() {
+      var id;
+      try { id = localStorage.getItem('ceob_disp'); } catch (e) {}
+      if (!id) {
+        id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+          : Date.now().toString(36) + Math.random().toString(36).slice(2, 12);
+        try { localStorage.setItem('ceob_disp', id); } catch (e) {}
+      }
+      return id;
+    }
+
+    function system() {
+      var ua = navigator.userAgent;
+      if (/Android/i.test(ua)) return 'Android';
+      if (/iPhone|iPad|iPod/i.test(ua) || (navigator.maxTouchPoints > 1 && /Macintosh/.test(ua))) return 'iOS';
+      if (/Windows/i.test(ua)) return 'Windows';
+      if (/Macintosh/i.test(ua)) return 'Mac';
+      if (/Linux/i.test(ua)) return 'Linux';
+      return 'Outro';
+    }
+
+    function send() {
+      var sys = system();
+      var mobile = sys === 'Android' || sys === 'iOS' || /Mobile/i.test(navigator.userAgent);
+      try {
+        fetch(SUPABASE_URL + '/rest/v1/rpc/registrar_pressel', {
+          method: 'POST',
+          keepalive: true,
+          headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            p_dispositivo: deviceId(),
+            p_trabalho: answers.trabalho,
+            p_religiao: answers.religiao,
+            p_tempo: answers.tempo,
+            p_ocupacao: answers.ocupacao,
+            p_aparelho: mobile ? 'celular' : 'computador',
+            p_sistema: sys
+          })
+        }).catch(function () {});
+      } catch (e) {}
+    }
+  </script>
+</body>
+</html>
