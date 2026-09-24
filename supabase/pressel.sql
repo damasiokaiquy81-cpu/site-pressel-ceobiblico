@@ -8,7 +8,7 @@ create table if not exists public.pressel_respostas (
   id             bigint generated always as identity primary key,
   dispositivo    text not null unique,   -- código aleatório salvo no navegador
   trabalho       text not null,          -- sim | nao  (trabalha usando notebook/computador)
-  religiao       text,                   -- crente | catolico | outro
+  religiao       text,                   -- crente (= Evangélico) | catolico | outro | sem_religiao
   tempo          text not null,          -- ate_2h | 2_4h | 4_8h | mais_8h
   ocupacao       text not null,          -- empreendedor | home_office | estudante | jogos
   aparelho       text,                   -- celular | computador
@@ -41,7 +41,7 @@ as $$
 begin
   if length(p_dispositivo) not between 8 and 64
      or p_trabalho not in ('sim', 'nao')
-     or p_religiao not in ('crente', 'catolico', 'outro')
+     or p_religiao not in ('crente', 'catolico', 'outro', 'sem_religiao')
      or p_tempo not in ('ate_2h', '2_4h', '4_8h', 'mais_8h')
      or p_ocupacao not in ('empreendedor', 'home_office', 'estudante', 'jogos') then
     return 'erro';

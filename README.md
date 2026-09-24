@@ -14,10 +14,12 @@ São gravadas pela função `registrar_pressel`, com a chave publicável do proj
 Não é guardado nome, e-mail nem nada pessoal — só um código aleatório do aparelho, as respostas,
 se é celular ou computador, e o sistema.
 
-## Pendente
+Religião: `crente` (aparece como Evangélico), `catolico`, `outro` (Outra religião) e `sem_religiao`
+(Não tenho religião). Depois de mudar as opções, rode `supabase/pressel.sql` de novo no SQL Editor.
 
-- **Botão final**: o `href` do botão `Ver o CEOBiblico.ai` ainda está em `#vsl`.
-  Trocar pelo endereço da página de vendas (repositório `site-vendas-ceobiblico`).
+## Botão final
+
+`Ver o CEOBiblico.ai` leva para a página de vendas: https://sitev.ceobiblicoai.site/
 
 ## Rodar local
 

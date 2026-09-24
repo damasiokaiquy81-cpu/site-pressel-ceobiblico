@@ -143,9 +143,11 @@
     <section class="step" data-key="religiao">
       <h1>Qual é a sua <em>religião</em>?</h1>
       <div class="opts">
-        <button class="opt" data-v="crente"><svg class="ic" viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3M12 7v6M9.5 9.5h5"/></svg><span>Crente<small>Evangélico</small></span></button>
+        <!-- data-v "crente" = Evangélico (mantido para não quebrar as respostas já salvas) -->
+        <button class="opt" data-v="crente"><svg class="ic" viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3M12 7v6M9.5 9.5h5"/></svg><span>Evangélico</span></button>
         <button class="opt" data-v="catolico"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3v18M7 8h10"/></svg><span>Católico</span></button>
-        <button class="opt" data-v="outro"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg><span>Outro</span></button>
+        <button class="opt" data-v="outro"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg><span>Outra religião</span></button>
+        <button class="opt" data-v="sem_religiao"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg><span>Não tenho religião</span></button>
       </div>
       <button class="back" type="button">‹ Voltar</button>
     </section>
@@ -180,8 +182,8 @@
       <span class="tag">Acesso antecipado</span>
       <h1>Parabéns! Você foi <em>selecionado</em> para testar a primeira versão</h1>
       <p class="lead">O CEOBiblico.ai está sendo liberado agora para poucas pessoas. Você é uma das primeiras a conhecer. Assista ao vídeo curto e veja como funciona.</p>
-      <!-- Página de vendas (VSL): troque o href quando tiver o domínio -->
-      <a class="btn" id="go" href="#vsl">
+      <!-- Página de vendas (VSL) -->
+      <a class="btn" id="go" href="https://sitev.ceobiblicoai.site/">
         Ver o CEOBiblico.ai
         <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
