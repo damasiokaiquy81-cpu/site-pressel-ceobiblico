@@ -19,7 +19,10 @@ Religião: `crente` (aparece como Evangélico), `catolico`, `outro` (Outra relig
 
 ## Botão final
 
-`Ver o CEOBiblico.ai` leva para a página de vendas: https://sitev.ceobiblicoai.site/
+`Ver o CEOBiblico.ai` leva para a página de vendas: https://sitev.ceobiblicoai.site/?d=<código do aparelho>
+— o mesmo código salvo nas respostas. Se a pessoa comprar, a venda guarda esse código e a visão
+`vendas_com_pressel` (repositório `site-vendas-ceobiblico`, arquivo `supabase/vendas.sql`) mostra a compra
+junto com as respostas da pressel.
 
 ## Rodar local
 

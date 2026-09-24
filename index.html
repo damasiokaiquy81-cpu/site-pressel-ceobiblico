@@ -244,6 +244,13 @@
       return id;
     }
 
+    // Leva o mesmo código para a página de vendas: se a pessoa comprar,
+    // a venda fica ligada às respostas dela (tabela vendas, coluna dispositivo)
+    (function () {
+      var go = document.getElementById('go');
+      go.href = go.href.split('?')[0] + '?d=' + encodeURIComponent(deviceId());
+    })();
+
     function system() {
       var ua = navigator.userAgent;
       if (/Android/i.test(ua)) return 'Android';
